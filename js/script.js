@@ -20,23 +20,37 @@ const movieDB = {
         "Лига справедливости",
         "Ла-ла лэнд",
         "Одержимость",
-        "Скотт Пилигрим против..."
+        "Скотт Пилигрим против...",
+        "Железный человек"
     ]
 };
 
 const adv = document.querySelectorAll(".promo__adv img"),
       poster = document.querySelector(".promo__bg"),
-      gen = poster.querySelector(".promo__genre"),
-      mov = document.querySelectorAll(".promo__interactive-item");
+      gener = poster.querySelector(".promo__genre"),
+      movieList = document.querySelector(".promo__interactive-list");
 
 adv.forEach(item => {
     item.remove();
 });
 
-gen.textContent = 'драма';
+gener.textContent = 'драма';
 
 poster.style.backgroundImage = 'url("img/bg.jpg")';
 
-for (let i=0; i < mov.length; i++){
-    mov[i].textContent = `${[i+1]} ${movieDB.movies[i]}`;
-}
+// Метод харош но только если бд не расширеяется
+// Если элементов больше то класс не сможет из вместить
+// for (let i=0; i < movieList.length; i++){
+//     movieList[i].textContent = `${[i+1]} ${movieDB.movies[i]}`;
+// }
+
+movieList.innerHTML = "";
+
+movieDB.movies.sort();
+
+movieDB.movies.forEach((film, i) =>{
+    movieList.innerHTML += `
+    <li class="promo__interactive-item">${i+1}. ${film}
+    <div class="delete"></div>
+    </li>`;
+});
